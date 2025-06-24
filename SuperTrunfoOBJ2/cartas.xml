@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cartas>
+  <carta nome="Ford Model T" codigo="1A" cilindrada="2000" potencia="20"
+         rotacoes="1800" velocidade="70" comprimento="3.4" superTrunfo="false"/>
+  <carta nome="Volkswagen Fusca" codigo="1B" cilindrada="1200" potencia="34"
+         rotacoes="3000" velocidade="120" comprimento="4.1" superTrunfo="false"/>
+  <carta nome="Maverick do Mario" codigo="8D" cilindrada="5000"
+         potencia="500" rotacoes="7000" velocidade="350" comprimento="5.0"
+         superTrunfo="true"/>
+</cartas>
