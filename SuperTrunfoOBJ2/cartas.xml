@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cartas>
+  <carta nome="Ford Model T" codigo="1A" cilindrada="2000" potencia="20" rotacoes="1800" velocidade="70" comprimento="3.4" superTrunfo="false"/>
+  <carta nome="Volkswagen Fusca" codigo="1B" cilindrada="1200" potencia="34" rotacoes="3000" velocidade="120" comprimento="4.1" superTrunfo="false"/>
+  <carta nome="Chevrolet Bel Air" codigo="1C" cilindrada="3500" potencia="162" rotacoes="4000" velocidade="160" comprimento="5.1" superTrunfo="false"/>
+  <carta nome="Plymouth Barracuda" codigo="1D" cilindrada="6300" potencia="425" rotacoes="6000" velocidade="250" comprimento="4.8" superTrunfo="false"/>
+  <carta nome="Citroën DS" codigo="2A" cilindrada="1900" potencia="75" rotacoes="4500" velocidade="140" comprimento="4.8" superTrunfo="false"/>
+  <carta nome="Fiat 500" codigo="2B" cilindrada="500" potencia="18" rotacoes="4600" velocidade="95" comprimento="2.9" superTrunfo="false"/>
+  <carta nome="Mercedes-Benz 300SL" codigo="2C" cilindrada="3000" potencia="215" rotacoes="5800" velocidade="240" comprimento="4.5" superTrunfo="false"/>
+  <carta nome="Jaguar E-Type" codigo="2D" cilindrada="4200" potencia="265" rotacoes="5500" velocidade="240" comprimento="4.4" superTrunfo="false"/>
+  <carta nome="Chevrolet Corvette 1963" codigo="3A" cilindrada="5400" potencia="360" rotacoes="6000" velocidade="250" comprimento="4.5" superTrunfo="false"/>
+  <carta nome="Dodge Charger 1969" codigo="3B" cilindrada="7200" potencia="425" rotacoes="6000" velocidade="230" comprimento="5.1" superTrunfo="false"/>
+  <carta nome="Alfa Romeo Giulia" codigo="3C" cilindrada="1600" potencia="112" rotacoes="6200" velocidade="180" comprimento="4.1" superTrunfo="false"/>
+  <carta nome="Peugeot 404" codigo="3D" cilindrada="1600" potencia="72" rotacoes="5000" velocidade="145" comprimento="4.4" superTrunfo="false"/>
+  <carta nome="Opel Kadett" codigo="4A" cilindrada="1100" potencia="60" rotacoes="5200" velocidade="140" comprimento="4.0" superTrunfo="false"/>
+  <carta nome="Renault Dauphine" codigo="4B" cilindrada="850" potencia="32" rotacoes="4800" velocidade="115" comprimento="3.9" superTrunfo="false"/>
+  <carta nome="BMW 2002" codigo="4C" cilindrada="2000" potencia="130" rotacoes="5800" velocidade="190" comprimento="4.2" superTrunfo="false"/>
+  <carta nome="Lancia Fulvia" codigo="4D" cilindrada="1300" potencia="90" rotacoes="6000" velocidade="170" comprimento="4.0" superTrunfo="false"/>
+  <carta nome="Porsche 356" codigo="5A" cilindrada="1600" potencia="95" rotacoes="5500" velocidade="180" comprimento="4.0" superTrunfo="false"/>
+  <carta nome="Austin Mini Cooper" codigo="5B" cilindrada="1000" potencia="55" rotacoes="6000" velocidade="140" comprimento="3.1" superTrunfo="false"/>
+  <carta nome="Datsun 240Z" codigo="5C" cilindrada="2400" potencia="151" rotacoes="6000" velocidade="210" comprimento="4.1" superTrunfo="false"/>
+  <carta nome="Toyota 2000GT" codigo="5D" cilindrada="2000" potencia="150" rotacoes="6600" velocidade="220" comprimento="4.2" superTrunfo="false"/>
+  <carta nome="Ford Mustang 1965" codigo="6A" cilindrada="4700" potencia="271" rotacoes="6000" velocidade="210" comprimento="4.6" superTrunfo="false"/>
+  <carta nome="Buick Riviera 1963" codigo="6B" cilindrada="6600" potencia="325" rotacoes="5000" velocidade="200" comprimento="5.3" superTrunfo="false"/>
+  <carta nome="Chrysler 300C 1957" codigo="6C" cilindrada="6400" potencia="375" rotacoes="5200" velocidade="210" comprimento="5.5" superTrunfo="false"/>
+  <carta nome="Studebaker Avanti" codigo="6D" cilindrada="4700" potencia="240" rotacoes="5500" velocidade="200" comprimento="4.8" superTrunfo="false"/>
+  <carta nome="Cadillac Eldorado 1959" codigo="7A" cilindrada="6400" potencia="345" rotacoes="4800" velocidade="180" comprimento="5.7" superTrunfo="false"/>
+  <carta nome="Lincoln Continental 1961" codigo="7B" cilindrada="7300" potencia="300" rotacoes="4600" velocidade="175" comprimento="5.5" superTrunfo="false"/>
+  <carta nome="Rolls-Royce Silver Cloud" codigo="7C" cilindrada="4900" potencia="155" rotacoes="4000" velocidade="170" comprimento="5.4" superTrunfo="false"/>
+  <carta nome="Bentley S2" codigo="7D" cilindrada="6200" potencia="200" rotacoes="4200" velocidade="180" comprimento="5.3" superTrunfo="false"/>
+  <carta nome="Ferrari 250 GTO" codigo="8A" cilindrada="3000" potencia="300" rotacoes="7500" velocidade="280" comprimento="4.3" superTrunfo="false"/>
+  <carta nome="Lamborghini Miura" codigo="8B" cilindrada="3900" potencia="350" rotacoes="7700" velocidade="290" comprimento="4.4" superTrunfo="false"/>
+  <carta nome="Aston Martin DB5" codigo="8C" cilindrada="4000" potencia="282" rotacoes="5500" velocidade="230" comprimento="4.6" superTrunfo="false"/>
+  <carta nome="Maverick do Mario" codigo="8D" cilindrada="5000" potencia="500" rotacoes="7000" velocidade="350" comprimento="5.0" superTrunfo="true"/>
+</cartas>
