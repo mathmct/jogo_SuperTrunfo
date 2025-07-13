@@ -1,0 +1,1 @@
+supertrunfoobj2.ServidorSuperTrunfo
