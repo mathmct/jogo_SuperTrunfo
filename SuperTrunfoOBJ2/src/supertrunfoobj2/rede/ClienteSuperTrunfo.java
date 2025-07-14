@@ -1,7 +1,7 @@
 package supertrunfoobj2.rede;
 
 import java.io.*;
-import java.net.*;
+import java.net.Socket;
 import java.util.Scanner;
 
 public class ClienteSuperTrunfo {
@@ -24,12 +24,18 @@ public class ClienteSuperTrunfo {
                         System.out.print("> ");
                         String atributo = scanner.nextLine();
                         out.writeObject(atributo);
-                    }
+                        out.flush();
+                    } else if (mensagem.toLowerCase().contains("deseja jogar novamente")) {
+                        System.out.print("> ");
+                        String resposta = scanner.nextLine();
+                        out.writeObject(resposta);
+                        out.flush();
 
-                    if (mensagem.toLowerCase().contains("fim de jogo") ||
-                        mensagem.toLowerCase().contains("você venceu o jogo") ||
-                        mensagem.toLowerCase().contains("você perdeu o jogo")) {
-                        break;
+                        if (!resposta.trim().equalsIgnoreCase("s")) {
+                            break;
+                        }
+                    } else if (mensagem.toLowerCase().contains("jogo finalizado")) {
+                        break; 
                     }
                 }
             }

@@ -39,8 +39,11 @@ public class GerenciadorJogo implements Runnable {
             while (continuar) {
                 iniciarJogo();
 
+                
                 saidaJogador1.writeObject("Deseja jogar novamente? (s/n)");
                 saidaJogador2.writeObject("Deseja jogar novamente? (s/n)");
+                saidaJogador1.flush();
+                saidaJogador2.flush();
 
                 String resposta1 = ((String) entradaJogador1.readObject()).trim().toLowerCase();
                 String resposta2 = ((String) entradaJogador2.readObject()).trim().toLowerCase();
@@ -49,10 +52,18 @@ public class GerenciadorJogo implements Runnable {
                     continuar = false;
                     saidaJogador1.writeObject("Jogo finalizado. Obrigado por jogar!");
                     saidaJogador2.writeObject("Jogo finalizado. Obrigado por jogar!");
+                    saidaJogador1.flush();
+                    saidaJogador2.flush();
                 } else {
                     vezJogador1 = true;
                 }
             }
+
+            
+            entradaJogador1.close();
+            saidaJogador1.close();
+            entradaJogador2.close();
+            saidaJogador2.close();
 
         } catch (Exception e) {
             e.printStackTrace();

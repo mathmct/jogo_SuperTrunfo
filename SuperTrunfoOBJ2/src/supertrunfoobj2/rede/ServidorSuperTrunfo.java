@@ -1,7 +1,5 @@
 package supertrunfoobj2.rede;
 
-import supertrunfoobj2.rede.GerenciadorJogo;
-
 import java.net.ServerSocket;
 import java.net.Socket;
 
