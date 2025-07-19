@@ -12,7 +12,7 @@ public class CartaCarro extends Carta {
                       int cilindrada, int potencia,
                       int rotacoes, int velocidade,
                       double comprimento,
-                      boolean superTrunfo) {
+                      boolean superTrunfo) throws Exception {
         super(nome, codigo);
         setCilindrada(cilindrada);
         setPotencia(potencia);
@@ -26,52 +26,67 @@ public class CartaCarro extends Carta {
         return cilindrada;
     }
 
-    public void setCilindrada(int cilindrada) {
-        if (cilindrada <= 0) throw new IllegalArgumentException("Cilindrada deve ser >0");
-        this.cilindrada = cilindrada;
+    private void setCilindrada(int cilindrada) throws Exception {
+        if (cilindrada > 0) {
+            this.cilindrada = cilindrada;
+        } else {
+            throw new Exception("Cilindrada deve ser >0");
+        }
     }
 
     public int getPotencia() {
         return potencia;
     }
 
-    public void setPotencia(int potencia) {
-        if (potencia <= 0) throw new IllegalArgumentException("Potência deve ser >0");
-        this.potencia = potencia;
+    private void setPotencia(int potencia) throws Exception {
+        if (potencia > 0) {
+            this.potencia = potencia;
+        } else {
+            throw new Exception("Potência deve ser >0");
+        }
     }
 
     public int getRotacoes() {
         return rotacoes;
     }
 
-    public void setRotacoes(int rotacoes) {
-        if (rotacoes <= 0) throw new IllegalArgumentException("Rotações devem ser >0");
-        this.rotacoes = rotacoes;
+    private void setRotacoes(int rotacoes) throws Exception {
+        if (rotacoes > 0) {
+            this.rotacoes = rotacoes;
+        } else {
+            throw new Exception("Rotações devem ser >0");
+        }
     }
 
     public int getVelocidade() {
         return velocidade;
     }
 
-    public void setVelocidade(int velocidade) {
-        if (velocidade <= 0) throw new IllegalArgumentException("Velocidade deve ser >0");
-        this.velocidade = velocidade;
+    private void setVelocidade(int velocidade) throws Exception {
+        if (velocidade > 0) {
+            this.velocidade = velocidade;
+        } else {
+            throw new Exception("Velocidade deve ser >0");
+        }
     }
 
     public double getComprimento() {
         return comprimento;
     }
 
-    public void setComprimento(double comprimento) {
-        if (comprimento <= 0) throw new IllegalArgumentException("Comprimento deve ser >0");
-        this.comprimento = comprimento;
+    private void setComprimento(double comprimento) throws Exception {
+        if (comprimento > 0) {
+            this.comprimento = comprimento;
+        } else {
+            throw new Exception("Comprimento deve ser >0");
+        }
     }
 
     public boolean isSuperTrunfo() {
         return superTrunfo;
     }
 
-    public void setSuperTrunfo(boolean superTrunfo) {
+    private void setSuperTrunfo(boolean superTrunfo) {
         this.superTrunfo = superTrunfo;
     }
 

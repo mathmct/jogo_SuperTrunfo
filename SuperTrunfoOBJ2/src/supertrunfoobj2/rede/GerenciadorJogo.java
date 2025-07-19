@@ -82,9 +82,9 @@ public class GerenciadorJogo implements Runnable {
             saidaJogador1.writeObject("Sua carta: " + carta1);
             saidaJogador2.writeObject("Sua carta: " + carta2);
 
-            saidaJogador1.writeObject("Você tem " + baralho.tamanhoJogador1() +
+            saidaJogador1.writeObject("Voce tem " + baralho.tamanhoJogador1() +
                     " cartas. Oponente tem " + baralho.tamanhoJogador2() + " cartas.");
-            saidaJogador2.writeObject("Você tem " + baralho.tamanhoJogador2() +
+            saidaJogador2.writeObject("Voce tem " + baralho.tamanhoJogador2() +
                     " cartas. Oponente tem " + baralho.tamanhoJogador1() + " cartas.");
 
             String atributo;
@@ -124,11 +124,11 @@ public class GerenciadorJogo implements Runnable {
         }
 
         if (!baralho.jogador1TemCartas()) {
-            saidaJogador1.writeObject("Você perdeu! Fim de jogo.");
-            saidaJogador2.writeObject("Você venceu! Fim de jogo.");
+            saidaJogador1.writeObject("Voce perdeu! Fim de jogo.");
+            saidaJogador2.writeObject("Voce venceu! Fim de jogo.");
         } else {
-            saidaJogador1.writeObject("Você venceu! Fim de jogo.");
-            saidaJogador2.writeObject("Você perdeu! Fim de jogo.");
+            saidaJogador1.writeObject("Voce venceu! Fim de jogo.");
+            saidaJogador2.writeObject("Voce perdeu! Fim de jogo.");
         }
     }
 

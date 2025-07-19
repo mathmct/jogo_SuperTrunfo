@@ -4,7 +4,7 @@ public abstract class Carta {
     private String nome;
     private String codigo;
 
-    public Carta(String nome, String codigo) {
+    public Carta(String nome, String codigo) throws Exception {
         setNome(nome);
         setCodigo(codigo);
     }
@@ -13,22 +13,24 @@ public abstract class Carta {
         return nome;
     }
 
-    public void setNome(String nome) {
-        if (nome == null || nome.isBlank()) {
-            throw new IllegalArgumentException("Nome não pode ser vazio");
+    private void setNome(String nome) throws Exception {
+        if (nome != null) {
+            this.nome = nome;
+        } else {
+            throw new Exception("Nome não pode ser nulo");
         }
-        this.nome = nome;
     }
 
     public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
-        if (codigo == null || codigo.isBlank()) {
-            throw new IllegalArgumentException("Código não pode ser vazio");
+    private void setCodigo(String codigo) throws Exception {
+        if (codigo != null) {
+            this.codigo = codigo;
+        } else {
+            throw new Exception("Código não pode ser nulo");
         }
-        this.codigo = codigo;
     }
 
     @Override
