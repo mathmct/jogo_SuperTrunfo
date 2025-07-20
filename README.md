@@ -12,16 +12,16 @@
 - Painel dinâmico com imagem da carta atual
 
 ## Regras do Jogo:
-- Super Trunfo é um jogo de cartas comparativas em que cada jogador recebe uma pilha de cartas com atributos numéricos. A cada rodada:
+## Super Trunfo é um jogo de cartas comparativas em que cada jogador recebe uma pilha de cartas com atributos numéricos. A cada rodada:
 
-    ## O jogador da vez escolhe um atributo para competir.
+    - O jogador da vez escolhe um atributo para competir.
 
-    ## Ambos revelam suas cartas e comparam o valor do atributo escolhido.
+    - Ambos revelam suas cartas e comparam o valor do atributo escolhido.
 
-    ## Quem tiver o maior valor vence a rodada e ganha a carta do oponente.
+    - Quem tiver o maior valor vence a rodada e ganha a carta do oponente.
 
-    ## Em caso de empate, cada jogador mantém sua carta.
+    - Em caso de empate, cada jogador mantém sua carta.
 
-    ## A carta especial Super Trunfo vence todas as outras, exceto aquelas com código iniciando em “A”.
+    - A carta especial Super Trunfo vence todas as outras, exceto aquelas com código iniciando em “A”.
 
-    ## Vence o jogo quem ficar com todas as cartas ao final das rodadas.
+    - Vence o jogo quem ficar com todas as cartas ao final das rodadas.
