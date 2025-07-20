@@ -31,8 +31,8 @@ public class GerenciadorJogo implements Runnable {
     @Override
     public void run() {
         try {
-            saidaJogador1.writeObject("J1;true");
-            saidaJogador2.writeObject("J2;false");
+            saidaJogador1.writeObject("J1 começa");
+            saidaJogador2.writeObject("J2 espera");
 
             boolean continuar = true;
 
