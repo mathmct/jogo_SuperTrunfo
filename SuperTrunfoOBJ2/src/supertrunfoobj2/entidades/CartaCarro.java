@@ -98,8 +98,9 @@ public class CartaCarro extends Carta {
 
     @Override
     public String toString() {
-        return String.format("%s | Cil: %dcc | Pot: %d | RPM: %d | Vel: %dkm/h | Comp: %.2fm%s",
-                super.toString(), cilindrada, potencia, rotacoes, velocidade, comprimento,
-                superTrunfo ? " [SUPER TRUNFO]" : "");
-    }
+    return String.format("%s | Pot: %d | Vel: %dkm/h | Comp: %.2fm | RPM: %d | Cil: %dcc%s",
+        super.toString(), potencia, velocidade, comprimento, rotacoes, cilindrada,
+        superTrunfo ? " [SUPER TRUNFO]" : "");
+}
+
 }

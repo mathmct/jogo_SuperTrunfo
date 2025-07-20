@@ -1,14 +1,14 @@
 package supertrunfoobj2.rede;
 
 import supertrunfoobj2.entidades.CartaCarro;
+import supertrunfoobj2.util.SomUtil;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
-import org.w3c.dom.*;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 public class TelaJogo extends JFrame {
 
@@ -24,26 +24,37 @@ public class TelaJogo extends JFrame {
     private final Map<String, JButton> botoesAtributos = new HashMap<>();
 
     public TelaJogo() {
+        UIManager.put("Panel.background", new Color(30, 33, 38));
+        UIManager.put("Button.background", new Color(53, 57, 64));
+        UIManager.put("Button.foreground", Color.WHITE);
+        UIManager.put("TextArea.background", new Color(30, 30, 30));
+        UIManager.put("TextArea.foreground", Color.WHITE);
+        UIManager.put("TitledBorder.titleColor", Color.WHITE);
+
         setTitle("Super Trunfo - Jogo");
         setSize(1200, 720);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
+        getContentPane().setBackground(new Color(20, 22, 28));
 
         inicializarInterface();
         configurarAcoes();
     }
 
     private void inicializarInterface() {
+        Font fonte = new Font("Segoe UI", Font.PLAIN, 14);
+
         areaMensagens = new JTextArea();
         areaMensagens.setEditable(false);
-        areaMensagens.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        areaMensagens.setFont(fonte);
         add(new JScrollPane(areaMensagens), BorderLayout.CENTER);
 
         painelAtributos = new JPanel(new GridLayout(1, 5, 10, 10));
-        String[] atributos = {"potencia", "velocidade", "rotacoes", "comprimento", "cilindrada"};
+        String[] atributos = {"potencia", "velocidade", "comprimento", "rotacoes", "cilindrada"};
         for (String atr : atributos) {
             JButton botao = new JButton(atr.substring(0, 1).toUpperCase() + atr.substring(1));
+            botao.setFont(fonte);
             botao.setEnabled(false);
             botao.addActionListener(e -> enviarAtributo(atr));
             painelAtributos.add(botao);
@@ -54,6 +65,7 @@ public class TelaJogo extends JFrame {
         painelCarta = new JPanel();
         painelCarta.setBorder(BorderFactory.createTitledBorder("Sua Carta"));
         painelCarta.setPreferredSize(new Dimension(400, 300));
+        painelCarta.setLayout(new BoxLayout(painelCarta, BoxLayout.Y_AXIS));
         painelCarta.add(new JLabel("Dados da carta aparecerão aqui"));
         add(painelCarta, BorderLayout.WEST);
 
@@ -63,10 +75,13 @@ public class TelaJogo extends JFrame {
         botaoJogarNovamente.setVisible(false);
         botaoVerLog = new JButton("Ver Log");
 
+        botaoJogar.setFont(fonte);
+        botaoJogarNovamente.setFont(fonte);
+        botaoVerLog.setFont(fonte);
+
         painelControle.add(botaoJogar);
         painelControle.add(botaoJogarNovamente);
         painelControle.add(botaoVerLog);
-
         add(painelControle, BorderLayout.SOUTH);
     }
 
@@ -95,10 +110,11 @@ public class TelaJogo extends JFrame {
                     return;
                 }
 
-                Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
+                var doc = javax.xml.parsers.DocumentBuilderFactory.newInstance()
+                        .newDocumentBuilder().parse(file);
                 doc.getDocumentElement().normalize();
+                var rodadas = doc.getElementsByTagName("rodada");
 
-                NodeList rodadas = doc.getElementsByTagName("rodada");
                 StringBuilder sb = new StringBuilder("📜 Log da Última Partida:\n\n");
                 for (int i = 0; i < rodadas.getLength(); i++) {
                     sb.append("- ").append(rodadas.item(i).getTextContent()).append("\n");
@@ -106,6 +122,10 @@ public class TelaJogo extends JFrame {
 
                 JTextArea logArea = new JTextArea(sb.toString());
                 logArea.setEditable(false);
+                logArea.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+                logArea.setBackground(new Color(40, 42, 48));
+                logArea.setForeground(Color.WHITE);
+
                 JScrollPane scroll = new JScrollPane(logArea);
                 scroll.setPreferredSize(new Dimension(500, 300));
 
@@ -147,6 +167,12 @@ public class TelaJogo extends JFrame {
 
     private void processarMensagem(String mensagem) {
         SwingUtilities.invokeLater(() -> {
+            if (mensagem.startsWith("SOM:")) {
+                String nomeSom = mensagem.replace("SOM:", "").trim();
+                SomUtil.tocar(nomeSom);
+                return;
+            }
+
             areaMensagens.append(mensagem + "\n");
             pedirAtributo(mensagem);
             mostrarBotaoJogarNovamente(mensagem);
@@ -164,34 +190,37 @@ public class TelaJogo extends JFrame {
     }
 
     private void exibirCarta(String mensagem) {
-    if (mensagem.toLowerCase().startsWith("sua carta:")) {
-        String dadosCarta = mensagem.replace("Sua carta: ", "").trim();
-        painelCarta.removeAll();
+        if (mensagem.toLowerCase().startsWith("sua carta:")) {
+            String dadosCarta = mensagem.replace("Sua carta: ", "").trim();
+            painelCarta.removeAll();
 
-        JLabel textoCarta = new JLabel("<html>" + dadosCarta.replace("|", "<br>") + "</html>");
+            JLabel textoCarta = new JLabel("<html>" + dadosCarta.replace("|", "<br>") + "</html>");
+            textoCarta.setAlignmentX(Component.CENTER_ALIGNMENT);
+            textoCarta.setForeground(Color.WHITE);
+            textoCarta.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 
-        String codigo = "";
-        int ini = dadosCarta.indexOf("(");
-        int fim = dadosCarta.indexOf(")");
-        if (ini != -1 && fim != -1 && fim > ini) {
-            codigo = dadosCarta.substring(ini + 1, fim).toLowerCase();
+            String codigo = "";
+            int ini = dadosCarta.indexOf("(");
+            int fim = dadosCarta.indexOf(")");
+            if (ini != -1 && fim != -1 && fim > ini) {
+                codigo = dadosCarta.substring(ini + 1, fim).toLowerCase();
+            }
+
+            try {
+                ImageIcon iconeCarta = new ImageIcon("imagens/" + codigo + ".png");
+                Image imagem = iconeCarta.getImage().getScaledInstance(400, 500, Image.SCALE_SMOOTH);
+                JLabel imagemCarta = new JLabel(new ImageIcon(imagem));
+                imagemCarta.setAlignmentX(Component.CENTER_ALIGNMENT);
+                painelCarta.add(imagemCarta);
+            } catch (Exception e) {
+                painelCarta.add(new JLabel("Imagem não encontrada."));
+            }
+
+            painelCarta.add(textoCarta);
+            painelCarta.revalidate();
+            painelCarta.repaint();
         }
-
-        try {
-            ImageIcon iconeCarta = new ImageIcon("imagens/" + codigo + ".png");
-            Image imagem = iconeCarta.getImage().getScaledInstance(320, 400, Image.SCALE_SMOOTH);
-            JLabel imagemCarta = new JLabel(new ImageIcon(imagem));
-            painelCarta.add(imagemCarta);
-        } catch (Exception e) {
-            painelCarta.add(new JLabel("Imagem não encontrada."));
-        }
-
-        painelCarta.add(textoCarta);
-        painelCarta.revalidate();
-        painelCarta.repaint();
     }
-}
-
 
     private void encerrarJogo() {
         try {
