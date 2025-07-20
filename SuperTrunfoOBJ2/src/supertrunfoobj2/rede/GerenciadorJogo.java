@@ -2,9 +2,11 @@ package supertrunfoobj2.rede;
 
 import supertrunfoobj2.entidades.*;
 import supertrunfoobj2.xml.XMLHandler;
+import supertrunfoobj2.xml.LoggerXML;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,6 +19,7 @@ public class GerenciadorJogo implements Runnable {
 
     private boolean vezJogador1 = true;
     private Baralho baralho;
+    private final List<String> logRodadas = new ArrayList<>();
 
     public GerenciadorJogo(Socket jogador1, Socket jogador2) throws IOException {
         saidaJogador1 = new ObjectOutputStream(jogador1.getOutputStream());
@@ -39,7 +42,6 @@ public class GerenciadorJogo implements Runnable {
             while (continuar) {
                 iniciarJogo();
 
-                
                 saidaJogador1.writeObject("Deseja jogar novamente? (s/n)");
                 saidaJogador2.writeObject("Deseja jogar novamente? (s/n)");
                 saidaJogador1.flush();
@@ -59,7 +61,6 @@ public class GerenciadorJogo implements Runnable {
                 }
             }
 
-            
             entradaJogador1.close();
             saidaJogador1.close();
             entradaJogador2.close();
@@ -74,6 +75,7 @@ public class GerenciadorJogo implements Runnable {
         List<CartaCarro> cartas = XMLHandler.lerCartas(new File("cartas.xml"));
         Collections.shuffle(cartas);
         baralho = new Baralho(cartas);
+        logRodadas.clear();
 
         while (baralho.jogador1TemCartas() && baralho.jogador2TemCartas()) {
             Carta carta1 = baralho.puxarCartaJogador1();
@@ -116,6 +118,10 @@ public class GerenciadorJogo implements Runnable {
                 baralho.devolverCartaJogador2(carta2);
             }
 
+            String log = String.format("Rodada - J1: %s | J2: %s | Atributo: %s | Resultado: %s",
+                    carta1.getNome(), carta2.getNome(), atributo, resultado);
+            logRodadas.add(log);
+
             saidaJogador1.writeObject(resultado);
             saidaJogador2.writeObject(resultado);
 
@@ -123,13 +129,18 @@ public class GerenciadorJogo implements Runnable {
             saidaJogador2.writeObject("------------------------------------");
         }
 
+        String vencedor;
         if (!baralho.jogador1TemCartas()) {
             saidaJogador1.writeObject("Voce perdeu! Fim de jogo.");
             saidaJogador2.writeObject("Voce venceu! Fim de jogo.");
+            vencedor = "Jogador 2";
         } else {
             saidaJogador1.writeObject("Voce venceu! Fim de jogo.");
             saidaJogador2.writeObject("Voce perdeu! Fim de jogo.");
+            vencedor = "Jogador 1";
         }
+
+        LoggerXML.salvarResultado(vencedor, logRodadas);
     }
 
     private double obterValor(Carta carta, String atributo) {

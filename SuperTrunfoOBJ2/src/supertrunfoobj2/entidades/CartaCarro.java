@@ -7,6 +7,7 @@ public class CartaCarro extends Carta {
     private int velocidade;
     private double comprimento;
     private boolean superTrunfo;
+    private String caminhoImagem;
 
     public CartaCarro(String nome, String codigo,
                       int cilindrada, int potencia,
@@ -20,6 +21,7 @@ public class CartaCarro extends Carta {
         setVelocidade(velocidade);
         setComprimento(comprimento);
         setSuperTrunfo(superTrunfo);
+        this.caminhoImagem = "imagens/" + codigo.toLowerCase() + ".png";
     }
 
     public int getCilindrada() {
@@ -88,6 +90,10 @@ public class CartaCarro extends Carta {
 
     private void setSuperTrunfo(boolean superTrunfo) {
         this.superTrunfo = superTrunfo;
+    }
+
+    public String getCaminhoImagem() {
+        return caminhoImagem;
     }
 
     @Override

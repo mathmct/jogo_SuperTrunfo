@@ -7,6 +7,8 @@ import java.io.*;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
+import org.w3c.dom.*;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 public class TelaJogo extends JFrame {
 
@@ -15,6 +17,7 @@ public class TelaJogo extends JFrame {
     private JPanel painelAtributos;
     private JButton botaoJogar;
     private JButton botaoJogarNovamente;
+    private JButton botaoVerLog;
 
     private ObjectInputStream in;
     private ObjectOutputStream out;
@@ -50,7 +53,7 @@ public class TelaJogo extends JFrame {
 
         painelCarta = new JPanel();
         painelCarta.setBorder(BorderFactory.createTitledBorder("Sua Carta"));
-        painelCarta.setPreferredSize(new Dimension(220, 160));
+        painelCarta.setPreferredSize(new Dimension(400, 300));
         painelCarta.add(new JLabel("Dados da carta aparecerão aqui"));
         add(painelCarta, BorderLayout.WEST);
 
@@ -58,8 +61,12 @@ public class TelaJogo extends JFrame {
         botaoJogar = new JButton("Jogar");
         botaoJogarNovamente = new JButton("Jogar de Novo");
         botaoJogarNovamente.setVisible(false);
+        botaoVerLog = new JButton("Ver Log");
+
         painelControle.add(botaoJogar);
         painelControle.add(botaoJogarNovamente);
+        painelControle.add(botaoVerLog);
+
         add(painelControle, BorderLayout.SOUTH);
     }
 
@@ -76,6 +83,35 @@ public class TelaJogo extends JFrame {
                 botaoJogarNovamente.setVisible(false);
                 areaMensagens.append("Jogando novamente...\n");
             } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        botaoVerLog.addActionListener(e -> {
+            try {
+                File file = new File("log_partidas.xml");
+                if (!file.exists()) {
+                    JOptionPane.showMessageDialog(this, "Nenhum log de partida encontrado.");
+                    return;
+                }
+
+                Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
+                doc.getDocumentElement().normalize();
+
+                NodeList rodadas = doc.getElementsByTagName("rodada");
+                StringBuilder sb = new StringBuilder("📜 Log da Última Partida:\n\n");
+                for (int i = 0; i < rodadas.getLength(); i++) {
+                    sb.append("- ").append(rodadas.item(i).getTextContent()).append("\n");
+                }
+
+                JTextArea logArea = new JTextArea(sb.toString());
+                logArea.setEditable(false);
+                JScrollPane scroll = new JScrollPane(logArea);
+                scroll.setPreferredSize(new Dimension(500, 300));
+
+                JOptionPane.showMessageDialog(this, scroll, "Log de Partida", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
@@ -128,14 +164,34 @@ public class TelaJogo extends JFrame {
     }
 
     private void exibirCarta(String mensagem) {
-        if (mensagem.toLowerCase().startsWith("sua carta:")) {
-            String dadosCarta = mensagem.replace("Sua carta: ", "").trim();
-            painelCarta.removeAll();
-            painelCarta.add(new JLabel("<html>" + dadosCarta.replace("|", "<br>") + "</html>"));
-            painelCarta.revalidate();
-            painelCarta.repaint();
+    if (mensagem.toLowerCase().startsWith("sua carta:")) {
+        String dadosCarta = mensagem.replace("Sua carta: ", "").trim();
+        painelCarta.removeAll();
+
+        JLabel textoCarta = new JLabel("<html>" + dadosCarta.replace("|", "<br>") + "</html>");
+
+        String codigo = "";
+        int ini = dadosCarta.indexOf("(");
+        int fim = dadosCarta.indexOf(")");
+        if (ini != -1 && fim != -1 && fim > ini) {
+            codigo = dadosCarta.substring(ini + 1, fim).toLowerCase();
         }
+
+        try {
+            ImageIcon iconeCarta = new ImageIcon("imagens/" + codigo + ".png");
+            Image imagem = iconeCarta.getImage().getScaledInstance(320, 400, Image.SCALE_SMOOTH);
+            JLabel imagemCarta = new JLabel(new ImageIcon(imagem));
+            painelCarta.add(imagemCarta);
+        } catch (Exception e) {
+            painelCarta.add(new JLabel("Imagem não encontrada."));
+        }
+
+        painelCarta.add(textoCarta);
+        painelCarta.revalidate();
+        painelCarta.repaint();
     }
+}
+
 
     private void encerrarJogo() {
         try {
